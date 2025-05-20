@@ -2,27 +2,27 @@ import './App.css'
 import WelcomeScreen from './WelcomeScreen'
 import GameScreen from './GameScreen.jsx'
 import {useState} from 'react'; 
+import EndingScreen from './EndingScreen.jsx';
 
+const numberOfRounds = {
+  "Easy": 3, 
+  "Medium": 5, 
+  "Hard": 7 
+};
 
 function App() {
 
-  const [ hasStarted, setHasStarted ] = useState(false); 
   const [ difficulty, setDifficulty ] = useState("Easy");
-
-  const [ hasLost, setHasLost ] = useState(false); 
-
-  function handleLose() {
-      setHasLost(true);
-  }
+  const [ gameStatus, setGameStatus ] = useState("setup"); 
 
   return (
     <>
-      {!hasStarted && <WelcomeScreen handleStart={() => setHasStarted(true)} difficulty={difficulty} setDifficulty={setDifficulty}></WelcomeScreen>}
-      <p className="read-the-docs">
-        The difficulty is {difficulty}
-      </p>
-      <GameScreen handleLose={handleLose}/>
-      <h4>You have {hasLost ? "" : "not"} lost.</h4>
+      {gameStatus === "setup" && <WelcomeScreen handleStart={() => setGameStatus("ongoing")} difficulty={difficulty} setDifficulty={setDifficulty}></WelcomeScreen>}
+
+      {gameStatus === "ongoing" && <GameScreen handleStatus={setGameStatus} numRounds={numberOfRounds[difficulty]}/>}
+      {gameStatus === "ongoing" && <h4>You have {gameStatus==="lose" ? "" : "not"} lost.</h4>}
+
+      {(gameStatus === "lose" || gameStatus === "win") &&<EndingScreen/>}
     </>
   )
 }

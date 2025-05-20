@@ -32,7 +32,7 @@ const shuffle = (array) => {
   return array; 
 }; 
 
-function GameScreen({handleLose}) {
+function GameScreen({handleStatus, numRounds}) {
 
     const [ score, setScore ] = useState(0);
     const [ cards, setCards ] = useState(initialData); 
@@ -46,18 +46,20 @@ function GameScreen({handleLose}) {
 
         if (pickedCards.has(cardId)) {
             setScore(0);
-            handleLose(); 
+            handleStatus("lose"); 
         } else {
             setScore(score + 1); 
             const newSet = new Set(pickedCards); 
             newSet.add(cardId);
             setPickedCards(newSet);
+
+            //condition for winning
         } 
     }
     
     return (
         <>
-            <Scoreboard score={score}></Scoreboard>
+            <Scoreboard score={score} numRounds={numRounds}></Scoreboard>
             <CardList cards={cards} handleClick={handleClick}></CardList>
         </>
     );

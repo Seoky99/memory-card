@@ -1,7 +1,7 @@
-function Scoreboard({score}) {
+function Scoreboard({score, numRounds}) {
 
     return (
-        <h1>You scored {score} in a row!</h1>
+        <h3>You scored {score} in a row! This is out of {numRounds} rounds!</h3>
     );
 }
 
