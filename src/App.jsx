@@ -17,17 +17,15 @@ function App() {
   const [ gameStatus, setGameStatus ] = useState("setup"); 
 
   return (
-    <>
+    <div className="content-container">
       {gameStatus === "setup" && 
-        <WelcomeScreen handleStart={() => setGameStatus("ongoing")} difficulty={difficulty} setDifficulty={setDifficulty}
-          color={color} setColor={setColor}>
-        </WelcomeScreen>}
+        <WelcomeScreen handleStart={() => setGameStatus("ongoing")} setDifficulty={setDifficulty} setColor={setColor}> </WelcomeScreen>}
 
       {gameStatus === "ongoing" && <GameScreen handleStatus={setGameStatus} numRounds={numberOfRounds[difficulty]} color={color}/>}
       {gameStatus === "ongoing" && <h4>You have {gameStatus==="lose" ? "" : "not"} lost.</h4>}
 
       {(gameStatus === "lose" || gameStatus === "win") && <EndingScreen hasWon={gameStatus === "win"} handleStatus={setGameStatus}/>}
-    </>
+    </div>
   )
 }
 

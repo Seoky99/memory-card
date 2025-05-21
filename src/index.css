@@ -1,3 +1,9 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -64,5 +70,44 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+
+#play-button {
+  padding: 1.5rem 10rem;
+}
+
+.welcome-content-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  & .difficulty-button-container, .color-button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+
+.active-button {
+  border: 2px solid white;
+}
+
+.card-container {
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  width: 1200px;
+
+}
+.ending-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  & button {
+    width: 15rem;
   }
 }

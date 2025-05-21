@@ -1,25 +1,31 @@
 import CustomButton from './CustomButton';
+import {useState} from 'react';
 
-function WelcomeScreen({handleStart, difficulty, setDifficulty, color, setColor}) {
+function WelcomeScreen({handleStart, setDifficulty, setColor}) {
+
+    const [ sDID, setSDID ] = useState(-1); 
+    const [ sCID, setSCID ] = useState(-1);
+
+    const difficulties = ["Easy", "Medium", "Hard"]; 
+    const colors = ["White", "Blue", "Green", "Red", "Black"];
+
+
+    const difficultyList = difficulties.map((difficulty, index) => {
+        return <CustomButton buttonType={difficulty} handleClick={(e) => {setDifficulty(e.target.name); setSDID(index);}} selected={sDID === index} key={index}></CustomButton>;})
+
+    const colorList = colors.map((color, index) => {
+        return <CustomButton buttonType={color} handleClick={(e) => {setColor(e.target.name); setSCID(index);}} selected={sCID === index} key={index}></CustomButton>;})
 
     return(
-        <>
-            <button onClick={handleStart}>Play</button>
+        <div className="welcome-content-container">
             <div className="difficulty-button-container">
-                <CustomButton buttonType="Easy" handleClick={(e) => setDifficulty(e.target.name)}/>
-                <CustomButton buttonType="Medium" handleClick={(e) => setDifficulty(e.target.name)}/>
-                <CustomButton buttonType="Hard" handleClick={(e) => setDifficulty(e.target.name)}/>
+                {difficultyList}
             </div>
-            <h1>The difficulty is {difficulty}</h1>
             <div className="color-button-container">
-                <CustomButton buttonType="White" handleClick={(e) => setColor(e.target.name)}/>
-                <CustomButton buttonType="Blue" handleClick={(e) => setColor(e.target.name)}/>
-                <CustomButton buttonType="Green" handleClick={(e) => setColor(e.target.name)}/>
-                <CustomButton buttonType="Red" handleClick={(e) => setColor(e.target.name)}/>
-                <CustomButton buttonType="Black" handleClick={(e) => setColor(e.target.name)}/>
+                {colorList}
             </div>
-            <h1>The color is {color}</h1>
-        </>
+            <button id="play-button" onClick={handleStart}>Play</button>
+        </div>
     );
 
 }

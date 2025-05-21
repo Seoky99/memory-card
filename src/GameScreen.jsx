@@ -18,8 +18,6 @@ function GameScreen({handleStatus, numRounds, color}) {
 
     const [ loading, setLoading ] = useState(true);
 
-    const url = `https://api.scryfall.com/cards/search?q=cmc=1+color=${color}&unique=cards`; 
-
 
     function handleClick(cardId) {
         const newCards = [...cards]; 
@@ -46,6 +44,8 @@ function GameScreen({handleStatus, numRounds, color}) {
     useEffect( () => {
 
         let ignore = false; 
+        const url = `https://api.scryfall.com/cards/search?q=cmc=1+color=${color}&unique=cards`; 
+
 
         function convertData(data) {
 
@@ -64,6 +64,7 @@ function GameScreen({handleStatus, numRounds, color}) {
 
         async function fetchData() {
             try {
+
                 const response = await fetch(url, {
                     method: "GET",
                     headers: {
@@ -87,16 +88,16 @@ function GameScreen({handleStatus, numRounds, color}) {
         fetchData();
 
         return () => { ignore = true; }
-    }, [numRounds])
+    }, [numRounds, color])
 
 
     
     return (
-        <>
+        <div className="gamescreen-container">
             {loading && <h1>Loading...</h1>}
             {!loading && <Scoreboard score={score} numRounds={numRounds}></Scoreboard>}
             {!loading && <CardList cards={cards} handleClick={handleClick}></CardList>}
-        </>
+        </div>
     );
 }
 
